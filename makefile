@@ -1,7 +1,7 @@
 DEPS= stack
 
-compile: main.cpp 
-	 g++ main.cpp -o $(DEPS)
+compile: main2.cpp 
+	 g++ main2.cpp -o $(DEPS)
 
 run: $(DEPS)
 	 ./$(DEPS)

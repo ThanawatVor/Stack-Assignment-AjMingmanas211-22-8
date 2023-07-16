@@ -16,12 +16,15 @@ typedef NODE* NodePtr;
 NODE::NODE(char x){
 	data=x;
 	nextPtr=NULL;
-
 }
-char NODE::get_value(){
+char NODE::get_value()
+{
+  return data;
+}
+/*int NODE::get_value(){
 	return data;
 
-}
+}*/
 
 NODE* NODE::get_next(){
 	return nextPtr;
@@ -34,7 +37,8 @@ void NODE::set_next(NODE *t){
 }
 
 NODE::~NODE(){
-	 cout<<"Deleting " <<data<<endl;
+	 cout<<"deleting " <<data<<endl;
+
 }
 
 

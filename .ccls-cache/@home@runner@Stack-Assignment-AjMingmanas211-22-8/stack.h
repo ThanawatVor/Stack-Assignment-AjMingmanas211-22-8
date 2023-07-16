@@ -9,10 +9,14 @@ private:
 public:
     Stack(NodePtr = NULL);
     ~Stack();
-    int pop();
+    char pop();
     void push(char);
-    int getSize();
+    int get_size();
 };
+int Stack::get_size()
+{
+  return size;
+}
 
 Stack::Stack(NodePtr t){
   if(t) {
@@ -25,26 +29,31 @@ Stack::Stack(NodePtr t){
    }
 }
 void Stack::push(char x){
-   NodePtr new_node=new NODE(x);
-  
-  if(new_node){
-    new_node ->set_next(top);
-    top = new_node;
+   NodePtr newnode=new NODE(x);
+  //1
+  if(newnode){
+    newnode->set_next(top);
+    top=newnode;
     size++;
+      
    }
  else cout<<"No memory left for new nodes"<<endl;
 		 // Left missing for exercises…
 }
-int Stack::pop(){
+char Stack::pop(){
  	   NodePtr t=top;
 		int value;		
-	 if(t){
+	 if(t)	{
+    
      value=t->get_value();
      top=t->get_next();
      delete t;
-      size--;
+     size--;
      return value;
+	// Left missing for exercises
+   
      }
+    
 		cout<<"Empty stack"<<endl;
    return 0;
 	}
@@ -53,9 +62,16 @@ Stack::~Stack(){
   	int i;
   NodePtr t=top;
 for(i=0;i<size;i++){
-    top=top->get_next();
-    delete t;
+  t=top;
+  top=top->get_next();
+  delete t;
+     
+   	// Left missing for exercises
   }
+
+
 }
+
+
 
 #endif

@@ -2,67 +2,63 @@
 using namespace std;
 #include "stack.h"
 #include <cstring>
+#include <string.h>
 
 int main(int argc, char *argv[]) {
-    for (int j = 1; j < argc; j++) {
-        Stack s;
-        bool match = true;
-        bool tooManyClose = false;
-
-        for (int i = 0; i < strlen(argv[j]); i++) {
-            char currentChar = argv[j][i];
-
-            switch (currentChar) {
-                case '[':
-                case '{':
-                    s.push(currentChar);
-                    break;
-                case ']':
-                    char data = s.pop();
-                    if (data != '[') {
-                        match = false;
-                    }
-                    if (data == '\0') {
-                        tooManyClose = true;
-                    }
-                    break;
-                case '}':
-                    char data = s.pop();
-                    if (data != '{') {
-                        match = false;
-                    }
-                    if (data == '\0') {
-                        tooManyClose = true;
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            if (!match) {
-                break;
-            }
-        }
-
-        if (s.getSize() > 0) {
-            match = false;
-        }
-
-        if (!match) {
-            cout << "Parentheses do not match ";
-            if (tooManyClose) {
-                cout << "with too many closing parentheses" << std::endl;
-            } else if (s.getSize() > 0) {
-                cout << "with too many open parentheses" << std::endl;
-            } else {
-                cout << std::endl;
-            }
-        } else {
-            cout << "Parentheses match" << std::endl;
-        }
+  int i,match=1;
+  char c;
+  bool toomanyclose=false;
+  for(i=1;i<argc;i++)
+  {
+    Stack s; 
+    for(int j=0;j<strlen(argv[i]);j++)
+      {
+        switch(argv[i][j])
+          {
+            case '}':
+              if(s.get_size()==0) toomanyclose=true;
+              c=s.pop();
+              if(c!='{') match=0; 
+              if(c=='{') match=1;
+              break;
+            case ']':
+              if(s.get_size()==0) toomanyclose=true;
+              c=s.pop();
+              if(c!='[') match=0;
+              if(c=='[') match=1;
+              break;
+            case ')':
+              if(s.get_size()==0) toomanyclose=true;
+              c=s.pop();
+              if(c!='(') match=0;
+              if(c=='(') match=1;
+              break;
+            case '{': s.push(argv[i][j]); break;
+            case '[': s.push(argv[i][j]); break;
+            case '(': s.push(argv[i][j]); break;
+          
+            default:break;
+          }
+        if(match==0) break;
+      }
+    if(match==0)
+    {
+      if(toomanyclose)
+      {
+        cout<<"not match: too many close parenthesis"<<endl;
+      }
+      else cout<<"not match"<<endl;
+      
     }
+    else if(s.get_size()!=0)
+    {
+      cout<<"not match: too many open parenthesis"<<endl;
+    }
+    else cout<<"match"<<endl;
+
+
+    
+    match=1;
+    toomanyclose=false;
+  }
 }
-
-
-
-
